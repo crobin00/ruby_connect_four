@@ -22,4 +22,21 @@ class Board
 
     false
   end
+
+  def display
+    output = ''
+    board.each do |row|
+      row.each do |space|
+        output += ' '
+        output += 'O' if space == 1
+        output += 'X' if space == 2
+        output += ' ' if space.nil?
+        output += ' |'
+      end
+      output += "\n"
+      output += '---------------------------'
+      output += "\n"
+    end
+    output
+  end
 end
