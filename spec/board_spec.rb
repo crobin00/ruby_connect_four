@@ -65,4 +65,38 @@ describe Board do
       end
     end
   end
+
+  describe '#col_full?' do
+    context 'when col is full' do
+      subject(:full_board) { described_class.new }
+
+      before do
+        current_board = Array.new(7) { Array.new(6) }
+        current_board[1] = [0, 1, 0, 0, 1, 0]
+        full_board.instance_variable_set(:@board, current_board)
+      end
+
+      it 'returns true' do
+        col = 1
+        return_value = full_board.col_full?(col)
+        expect(return_value).to be(true)
+      end
+    end
+
+    context 'when col is not full' do
+      subject(:half_board) { described_class.new }
+
+      before do
+        current_board = Array.new(7) { Array.new(6) }
+        current_board[1] = [0, 1, 0, 0, nil, nil]
+        half_board.instance_variable_set(:@board, current_board)
+      end
+
+      it 'returns true' do
+        col = 1
+        return_value = half_board.col_full?(col)
+        expect(return_value).to be(false)
+      end
+    end
+  end
 end

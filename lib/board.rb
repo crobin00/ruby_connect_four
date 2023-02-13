@@ -16,4 +16,10 @@ class Board
       end
     end
   end
+
+  def col_full?(col)
+    return true unless board[col].last.nil?
+
+    false
+  end
 end
