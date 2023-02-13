@@ -39,6 +39,19 @@ describe Game do
         game_input.player_input
       end
     end
+
+    context 'when given three incorrect input then quit input' do
+      it 'displays error message twice then returns input' do
+        first_invalid = 'd'
+        second_invalid = '8'
+        third_invalid = '-10'
+        valid_input = 'q'
+        allow(game_input).to receive(:gets).and_return(first_invalid, second_invalid, third_invalid, valid_input)
+        # To use a message expectation, move 'Assert' before 'Act'.
+        expect(game_input).to receive(:puts).with('Input error!').exactly(3).times
+        game_input.player_input
+      end
+    end
   end
 
   describe '#check_input' do
@@ -89,6 +102,22 @@ describe Game do
         input = '-1'
         return_value = game_input.check_input(input)
         expect(return_value).to be(false)
+      end
+    end
+
+    context 'when input is q to quit' do
+      it 'returns true' do
+        input = 'q'
+        return_value = game_input.check_input(input)
+        expect(return_value).to be(true)
+      end
+    end
+
+    context 'when input is Q to quit' do
+      it 'returns true' do
+        input = 'Q'
+        return_value = game_input.check_input(input)
+        expect(return_value).to be(true)
       end
     end
   end

@@ -15,8 +15,12 @@ class Game
 
   def run
     player_setup
+    puts 'Enter a column 1-7 or q to quit.'
     loop do
-      place_piece
+      puts "#{current_turn.name}'s turn:"
+      input = player_input
+      break if input == 'q' || input == 'Q'
+      next unless place_piece(input)
       puts board.display
       switch_turn
     end
@@ -36,18 +40,16 @@ class Game
     self.current_turn = current_turn == player_one ? player_two : player_one
   end
 
-  def place_piece
-    puts 'Enter a column number'
-    loop do
-      input = player_input.to_i - 1
+  def place_piece(input)
+    col_input = input.to_i - 1
 
-      unless board.col_full?(input)
-        board.place_piece(current_turn.piece, input)
-        return
-      end
-
-      puts 'Column full. Please input another'
+    unless board.col_full?(col_input)
+      board.place_piece(current_turn.piece, col_input)
+      return true
     end
+
+    puts 'Column full. Please input another'
+    false
   end
 
   def player_input
@@ -60,8 +62,8 @@ class Game
   end
 
   def check_input(input)
-    input_int = input.to_i
-    return true if input_int >= 1 && input_int <= 7
+    return true if (input.to_i >= 1 && input.to_i <= 7) ||
+                   input == 'q' || input == 'Q'
 
     false
   end
