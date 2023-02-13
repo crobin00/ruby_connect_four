@@ -15,11 +15,10 @@ class Game
 
   def run
     player_setup
-    @current_turn = player_one
     loop do
       place_piece
       puts board.display
-      self.current_turn = current_turn == player_one ? player_two : player_one
+      switch_turn
     end
   end
 
@@ -30,6 +29,11 @@ class Game
     puts 'Enter player 2 name: '
     name = gets.chomp
     @player_two = Player.new(name, 2)
+    @current_turn = player_one
+  end
+
+  def switch_turn
+    self.current_turn = current_turn == player_one ? player_two : player_one
   end
 
   def place_piece

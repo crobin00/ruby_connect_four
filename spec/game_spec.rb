@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative '../lib/game'
+require_relative '../lib/player'
 
 describe Game do
   describe '#player_input' do
@@ -89,6 +90,21 @@ describe Game do
         return_value = game_input.check_input(input)
         expect(return_value).to be(false)
       end
+    end
+  end
+
+  describe '#switch_turn' do
+    subject(:game_turn) { described_class.new }
+
+    let(:player_one) { instance_double(Player, name: 'P1', piece: 1) }
+    let(:player_two) { instance_double(Player, name: 'P2', piece: 2) }
+
+    it 'switches players turn' do
+      game_turn.instance_variable_set(:@player_one, player_one)
+      game_turn.instance_variable_set(:@player_two, player_two)
+      game_turn.instance_variable_set(:@current_turn, player_one)
+      turn = game_turn.switch_turn
+      expect(turn).to eq(player_two)
     end
   end
 end
