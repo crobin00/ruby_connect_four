@@ -17,12 +17,12 @@ class Game
     player_setup
     puts 'Enter a column 1-7 or q to quit.'
     loop do
+      puts board.display
       puts "#{current_turn.name}'s turn:"
       input = player_input
       break if %w[q Q].include?(input)
       next unless place_piece(input)
 
-      puts board.display
       switch_turn
     end
   end
