@@ -1,3 +1,6 @@
 # frozen_string_literal: true
 
-puts 'Hello world!'
+require_relative 'game'
+
+game = Game.new
+game.run
