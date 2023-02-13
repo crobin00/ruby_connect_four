@@ -1,13 +1,14 @@
 # frozen_string_literal: true
 
 require_relative '../lib/board'
+require_relative '../lib/player'
 
 describe Board do
   describe '#place_piece' do
     context 'when column has six empty spaces' do
       subject(:empty_board) { described_class.new }
 
-      let(:player_piece) { double('player_piece') }
+      let(:player_piece) { instance_double(Player, piece: 'X') }
 
       it 'places piece at bottom of col' do
         allow(player_piece).to receive(:piece).and_return(0)
@@ -23,7 +24,7 @@ describe Board do
     context 'when column has 3 empty spaces' do
       subject(:half_board) { described_class.new }
 
-      let(:player_piece) { double('player_piece') }
+      let(:player_piece) { instance_double(Player, piece: 'X') }
 
       before do
         current_board = Array.new(7) { Array.new(6) }
@@ -45,7 +46,7 @@ describe Board do
     context 'when column has no empty spaces' do
       subject(:half_board) { described_class.new }
 
-      let(:player_piece) { double('player_piece') }
+      let(:player_piece) { instance_double(Player, piece: 'X') }
 
       before do
         current_board = Array.new(7) { Array.new(6) }
