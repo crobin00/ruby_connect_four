@@ -7,14 +7,20 @@ require_relative 'player'
 # Handles game logic
 class Game
   attr_reader :board
+  attr_accessor :player_one, :player_two, :current_turn
 
   def initialize
     @board = Board.new
   end
 
   def run
-    place_piece
-    puts board.display
+    player_setup
+    @current_turn = player_one
+    loop do
+      place_piece
+      puts board.display
+      self.current_turn = current_turn == player_one ? player_two : player_one
+    end
   end
 
   def player_setup
@@ -32,7 +38,7 @@ class Game
       input = player_input.to_i - 1
 
       unless board.col_full?(input)
-        board.place_piece(1, input)
+        board.place_piece(current_turn.piece, input)
         return
       end
 
