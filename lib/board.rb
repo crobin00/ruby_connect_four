@@ -25,12 +25,12 @@ class Board
 
   def display
     output = ''
-    board.each do |row|
-      row.each do |space|
+    (0..5).reverse_each do |row|
+      7.times do |col|
         output += ' '
-        output += 'O' if space == 1
-        output += 'X' if space == 2
-        output += ' ' if space.nil?
+        output += 'O' if board[col][row] == 1
+        output += 'X' if board[col][row] == 2
+        output += ' ' if board[col][row].nil?
         output += ' |'
       end
       output += "\n"
