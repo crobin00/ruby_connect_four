@@ -1,9 +1,32 @@
 # frozen_string_literal: true
 
+require_relative 'display'
+require_relative 'board'
+
 # Handles game logic
 class Game
+  attr_reader :board
+
+  def initialize
+    @board = Board.new
+  end
+
   def run
     player_input
+  end
+
+  def place_piece
+    puts 'Enter a column number'
+    loop do
+      input = player_input.to_i
+
+      unless board.col_full?
+        board.place_piece('X', input)
+        return
+      end
+
+      puts 'Column full. Please input another'
+    end
   end
 
   def player_input
