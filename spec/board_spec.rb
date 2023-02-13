@@ -8,15 +8,14 @@ describe Board do
     context 'when column has six empty spaces' do
       subject(:empty_board) { described_class.new }
 
-      let(:player_piece) { instance_double(Player, piece: 'X') }
+      let(:player_piece) { instance_double(Player, piece: 1) }
 
       it 'places piece at bottom of col' do
-        allow(player_piece).to receive(:piece).and_return(0)
         col = 1
         empty_board.place_piece(player_piece.piece, col)
         board = empty_board.instance_variable_get(:@board)
         board_col = board[1]
-        expected_row = [0, nil, nil, nil, nil, nil]
+        expected_row = [1, nil, nil, nil, nil, nil]
         expect(board_col).to eq(expected_row)
       end
     end
@@ -24,21 +23,20 @@ describe Board do
     context 'when column has 3 empty spaces' do
       subject(:half_board) { described_class.new }
 
-      let(:player_piece) { instance_double(Player, piece: 'X') }
+      let(:player_piece) { instance_double(Player, piece: 1) }
 
       before do
         current_board = Array.new(7) { Array.new(6) }
-        current_board[1] = [0, 1, 0, nil, nil, nil]
+        current_board[1] = [1, 2, 1, nil, nil, nil]
         half_board.instance_variable_set(:@board, current_board)
       end
 
       it 'places piece in middle of col' do
-        allow(player_piece).to receive(:piece).and_return(0)
         col = 1
         half_board.place_piece(player_piece.piece, col)
         board = half_board.instance_variable_get(:@board)
         board_col = board[1]
-        expected_row = [0, 1, 0, 0, nil, nil]
+        expected_row = [1, 2, 1, 1, nil, nil]
         expect(board_col).to eq(expected_row)
       end
     end
@@ -46,21 +44,20 @@ describe Board do
     context 'when column has no empty spaces' do
       subject(:half_board) { described_class.new }
 
-      let(:player_piece) { instance_double(Player, piece: 'X') }
+      let(:player_piece) { instance_double(Player, piece: 1) }
 
       before do
         current_board = Array.new(7) { Array.new(6) }
-        current_board[1] = [0, 1, 0, 0, 1, 0]
+        current_board[1] = [1, 2, 1, 1, 2, 1]
         half_board.instance_variable_set(:@board, current_board)
       end
 
       it 'does not place piece' do
-        allow(player_piece).to receive(:piece).and_return(0)
         col = 1
         half_board.place_piece(player_piece.piece, col)
         board = half_board.instance_variable_get(:@board)
         board_col = board[1]
-        expected_row = [0, 1, 0, 0, 1, 0]
+        expected_row = [1, 2, 1, 1, 2, 1]
         expect(board_col).to eq(expected_row)
       end
     end
@@ -72,7 +69,7 @@ describe Board do
 
       before do
         current_board = Array.new(7) { Array.new(6) }
-        current_board[1] = [0, 1, 0, 0, 1, 0]
+        current_board[1] = [1, 2, 1, 1, 2, 1]
         full_board.instance_variable_set(:@board, current_board)
       end
 
@@ -88,7 +85,7 @@ describe Board do
 
       before do
         current_board = Array.new(7) { Array.new(6) }
-        current_board[1] = [0, 1, 0, 0, nil, nil]
+        current_board[1] = [1, 2, 1, 1, nil, nil]
         half_board.instance_variable_set(:@board, current_board)
       end
 
