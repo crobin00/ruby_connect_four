@@ -19,8 +19,9 @@ class Game
     loop do
       puts "#{current_turn.name}'s turn:"
       input = player_input
-      break if input == 'q' || input == 'Q'
+      break if %w[q Q].include?(input)
       next unless place_piece(input)
+
       puts board.display
       switch_turn
     end
