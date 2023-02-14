@@ -22,6 +22,7 @@ class Game
       input = player_input
       break if %w[q Q].include?(input)
       next unless place_piece(input)
+      break if won?
 
       switch_turn
     end
@@ -65,6 +66,16 @@ class Game
   def check_input(input)
     return true if (input.to_i >= 1 && input.to_i <= 7) ||
                    input == 'q' || input == 'Q'
+
+    false
+  end
+
+  def won?
+    if board.check_win(current_turn)
+      puts board.display
+      puts "#{current_turn.name} wins!"
+      return true
+    end
 
     false
   end
