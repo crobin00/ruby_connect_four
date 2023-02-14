@@ -22,6 +22,7 @@ class Game
       break if %w[q Q].include?(input)
       next unless place_piece(input)
       break if won?
+      break if draw?
 
       switch_turn
     end
@@ -73,6 +74,16 @@ class Game
     if board.check_win(current_turn)
       puts board.display
       puts "#{current_turn.name} wins!"
+      return true
+    end
+
+    false
+  end
+
+  def draw?
+    if board.check_draw
+      puts board.display
+      puts 'Draw!'
       return true
     end
 

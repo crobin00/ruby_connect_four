@@ -80,6 +80,13 @@ class Board
     false
   end
 
+  def check_draw
+    board.each do |col|
+      return false if col.any?(nil)
+    end
+    true
+  end
+
   def display
     output = ''
     output += " 1 | 2 | 3 | 4 | 5 | 6 | 7 \n"

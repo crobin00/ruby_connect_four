@@ -335,4 +335,48 @@ describe Board do
       end
     end
   end
+
+  describe '#check_draw' do
+    context 'when draw' do
+      subject(:draw_board) { described_class.new }
+
+      before do
+        current_board = Array.new(7) { Array.new(6) }
+        current_board[0] = [2, 1, 1, 1, 1, 2]
+        current_board[1] = [1, 1, 1, 1, 2, 1]
+        current_board[2] = [2, 1, 1, 1, 2, 2]
+        current_board[3] = [2, 1, 1, 1, 1, 2]
+        current_board[4] = [1, 2, 2, 1, 1, 2]
+        current_board[5] = [1, 1, 1, 1, 2, 1]
+        current_board[6] = [2, 1, 1, 1, 2, 2]
+        draw_board.instance_variable_set(:@board, current_board)
+      end
+
+      it 'returns true' do
+        return_value = draw_board.check_draw
+        expect(return_value).to be(true)
+      end
+    end
+
+    context 'when not draw' do
+      subject(:draw_board) { described_class.new }
+
+      before do
+        current_board = Array.new(7) { Array.new(6) }
+        current_board[0] = [2, 1, 1, 1, 1, nil]
+        current_board[1] = [1, 1, 1, 1, 2, 1]
+        current_board[2] = [2, 1, 1, 1, 2, 2]
+        current_board[3] = [2, 1, 1, 1, 1, 2]
+        current_board[4] = [1, 2, 2, 1, 1, 2]
+        current_board[5] = [1, 1, 1, 1, 2, nil]
+        current_board[6] = [2, 1, 1, 1, 2, 2]
+        draw_board.instance_variable_set(:@board, current_board)
+      end
+
+      it 'returns true' do
+        return_value = draw_board.check_draw
+        expect(return_value).to be(false)
+      end
+    end
+  end
 end
