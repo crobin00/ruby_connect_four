@@ -86,8 +86,8 @@ class Board
     (0..5).reverse_each do |row|
       7.times do |col|
         output += ' '
-        output += 'O' if board[col][row] == 1
-        output += 'X' if board[col][row] == 2
+        output += "\u25CB" if board[col][row] == 1
+        output += "\u25CD" if board[col][row] == 2
         output += ' ' if board[col][row].nil?
         output += ' |'
       end
