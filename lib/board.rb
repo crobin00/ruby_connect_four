@@ -82,6 +82,7 @@ class Board
 
   def display
     output = ''
+    output += " 1 | 2 | 3 | 4 | 5 | 6 | 7 \n"
     (0..5).reverse_each do |row|
       7.times do |col|
         output += ' '
