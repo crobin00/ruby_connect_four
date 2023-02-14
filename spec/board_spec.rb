@@ -96,4 +96,243 @@ describe Board do
       end
     end
   end
+
+  describe '#check_win_vertically' do
+    context 'when won' do
+      subject(:won_board) { described_class.new }
+
+      let(:player_piece) { instance_double(Player, piece: 1) }
+
+      before do
+        current_board = Array.new(7) { Array.new(6) }
+        current_board[1] = [2, 1, 1, 1, 1, nil]
+        won_board.instance_variable_set(:@board, current_board)
+      end
+
+      it 'returns true' do
+        return_value = won_board.check_win_vertically(player_piece)
+        expect(return_value).to be(true)
+      end
+    end
+
+    context 'when won on edge' do
+      subject(:won_board) { described_class.new }
+
+      let(:player_piece) { instance_double(Player, piece: 1) }
+
+      before do
+        current_board = Array.new(7) { Array.new(6) }
+        current_board[1] = [2, 2, 1, 1, 1, 1]
+        won_board.instance_variable_set(:@board, current_board)
+      end
+
+      it 'returns true' do
+        return_value = won_board.check_win_vertically(player_piece)
+        expect(return_value).to be(true)
+      end
+    end
+
+    context 'when not won' do
+      subject(:lose_board) { described_class.new }
+
+      let(:player_piece) { instance_double(Player, piece: 1) }
+
+      before do
+        current_board = Array.new(7) { Array.new(6) }
+        current_board[1] = [2, 2, 2, 1, 1, 1]
+        lose_board.instance_variable_set(:@board, current_board)
+      end
+
+      it 'returns false' do
+        return_value = lose_board.check_win_vertically(player_piece)
+        expect(return_value).to be(false)
+      end
+    end
+  end
+
+  describe '#check_win_horizontally' do
+    context 'when won' do
+      subject(:won_board) { described_class.new }
+
+      let(:player_piece) { instance_double(Player, piece: 1) }
+
+      before do
+        current_board = Array.new(7) { Array.new(6) }
+        current_board[1] = [2, 1, 1, 2, 2, nil]
+        current_board[2] = [2, 2, 1, 1, 2, nil]
+        current_board[3] = [2, 1, 1, 1, 1, nil]
+        current_board[4] = [2, 2, 1, nil, nil, nil]
+        won_board.instance_variable_set(:@board, current_board)
+      end
+
+      it 'returns true' do
+        return_value = won_board.check_win_horizontally(player_piece)
+        expect(return_value).to be(true)
+      end
+    end
+
+    context 'when won on edge' do
+      subject(:won_board) { described_class.new }
+
+      let(:player_piece) { instance_double(Player, piece: 1) }
+
+      before do
+        current_board = Array.new(7) { Array.new(6) }
+        current_board[3] = [2, 1, 1, 2, 2, nil]
+        current_board[4] = [2, 2, 1, 1, 2, nil]
+        current_board[5] = [2, 1, 1, 1, 1, nil]
+        current_board[6] = [2, 2, 1, nil, nil, nil]
+        won_board.instance_variable_set(:@board, current_board)
+      end
+
+      it 'returns true' do
+        return_value = won_board.check_win_horizontally(player_piece)
+        expect(return_value).to be(true)
+      end
+    end
+
+    context 'when not won' do
+      subject(:lose_board) { described_class.new }
+
+      let(:player_piece) { instance_double(Player, piece: 1) }
+
+      before do
+        current_board = Array.new(7) { Array.new(6) }
+        current_board[1] = [2, 1, 1, 2, 2, 2]
+        current_board[2] = [1, 2, 1, 1, 2, 1]
+        current_board[3] = [2, 1, 2, 1, 1, 2]
+        current_board[4] = [2, 2, 2, 1, 2, 1]
+        lose_board.instance_variable_set(:@board, current_board)
+      end
+
+      it 'returns false' do
+        return_value = lose_board.check_win_vertically(player_piece)
+        expect(return_value).to be(false)
+      end
+    end
+  end
+
+  describe '#check_win_diagonally_down' do
+    context 'when won' do
+      subject(:won_board) { described_class.new }
+
+      let(:player_piece) { instance_double(Player, piece: 1) }
+
+      before do
+        current_board = Array.new(7) { Array.new(6) }
+        current_board[1] = [1, 1, 1, 2, 2, nil]
+        current_board[2] = [2, 1, 1, 1, 2, nil]
+        current_board[3] = [2, 1, 1, 1, 1, nil]
+        current_board[4] = [2, 2, 2, 1, nil, nil]
+        won_board.instance_variable_set(:@board, current_board)
+      end
+
+      it 'returns true' do
+        return_value = won_board.check_win_diagonally_down(player_piece)
+        expect(return_value).to be(true)
+      end
+    end
+
+    context 'when won on edge' do
+      subject(:won_board) { described_class.new }
+
+      let(:player_piece) { instance_double(Player, piece: 1) }
+
+      before do
+        current_board = Array.new(7) { Array.new(6) }
+        current_board[3] = [1, 1, 1, 2, 2, nil]
+        current_board[4] = [2, 1, 1, 1, 2, nil]
+        current_board[5] = [2, 1, 1, 1, 1, nil]
+        current_board[6] = [2, 2, 2, 2, 2, 1]
+        won_board.instance_variable_set(:@board, current_board)
+      end
+
+      it 'returns true' do
+        return_value = won_board.check_win_diagonally_down(player_piece)
+        expect(return_value).to be(true)
+      end
+    end
+
+    context 'when not won' do
+      subject(:lose_board) { described_class.new }
+
+      let(:player_piece) { instance_double(Player, piece: 1) }
+
+      before do
+        current_board = Array.new(7) { Array.new(6) }
+        current_board[1] = [2, 1, 1, 2, 2, 2]
+        current_board[2] = [1, 2, 1, 2, 2, 1]
+        current_board[3] = [2, 1, 2, 1, 1, 2]
+        current_board[4] = [2, 2, 2, 1, 2, 1]
+        lose_board.instance_variable_set(:@board, current_board)
+      end
+
+      it 'returns false' do
+        return_value = lose_board.check_win_diagonally_down(player_piece)
+        expect(return_value).to be(false)
+      end
+    end
+  end
+
+  describe '#check_win_diagonally_up' do
+    context 'when won' do
+      subject(:won_board) { described_class.new }
+
+      let(:player_piece) { instance_double(Player, piece: 1) }
+
+      before do
+        current_board = Array.new(7) { Array.new(6) }
+        current_board[1] = [1, 1, 1, 1, 2, nil]
+        current_board[2] = [2, 1, 1, 1, 2, nil]
+        current_board[3] = [2, 1, 1, 1, 1, nil]
+        current_board[4] = [1, 2, 2, 1, nil, nil]
+        won_board.instance_variable_set(:@board, current_board)
+      end
+
+      it 'returns true' do
+        return_value = won_board.check_win_diagonally_up(player_piece)
+        expect(return_value).to be(true)
+      end
+    end
+
+    context 'when won on edge' do
+      subject(:won_board) { described_class.new }
+
+      let(:player_piece) { instance_double(Player, piece: 1) }
+
+      before do
+        current_board = Array.new(7) { Array.new(6) }
+        current_board[0] = [1, 1, 1, 2, 2, 1]
+        current_board[1] = [2, 1, 2, 1, 1, nil]
+        current_board[2] = [2, 1, 2, 1, 1, nil]
+        current_board[3] = [2, 2, 1, 2, 2, 1]
+        won_board.instance_variable_set(:@board, current_board)
+      end
+
+      it 'returns true' do
+        return_value = won_board.check_win_diagonally_up(player_piece)
+        expect(return_value).to be(true)
+      end
+    end
+
+    context 'when not won' do
+      subject(:lose_board) { described_class.new }
+
+      let(:player_piece) { instance_double(Player, piece: 1) }
+
+      before do
+        current_board = Array.new(7) { Array.new(6) }
+        current_board[1] = [2, 1, 1, 2, 2, 2]
+        current_board[2] = [1, 2, 1, 2, 2, 1]
+        current_board[3] = [2, 1, 2, 1, 1, 2]
+        current_board[4] = [2, 2, 2, 1, 2, 1]
+        lose_board.instance_variable_set(:@board, current_board)
+      end
+
+      it 'returns false' do
+        return_value = lose_board.check_win_diagonally_up(player_piece)
+        expect(return_value).to be(false)
+      end
+    end
+  end
 end

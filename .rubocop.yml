@@ -18,6 +18,9 @@ AllCops:
 Metrics/BlockLength:
   Exclude:
     - "spec/*"
+Metrics/AbcSize:
+  Exclude:
+    - "lib/board.rb"
 Layout/LineLength:
   Exclude:
     - "spec/*"
