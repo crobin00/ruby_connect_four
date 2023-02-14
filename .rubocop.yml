@@ -21,6 +21,10 @@ Metrics/BlockLength:
 Metrics/AbcSize:
   Exclude:
     - "lib/board.rb"
+Metrics/MethodLength:
+  Exclude:
+    - "lib/board.rb"
+    - "lib/game.rb"
 Layout/LineLength:
   Exclude:
     - "spec/*"
